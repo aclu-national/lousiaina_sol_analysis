@@ -7,4 +7,4 @@ All of the data and code for the project is located in the git. After you clone 
 
 ## Report
 
-[Find the report here]([url](https://infogram.com/report-1h1749veeklxq6z?live)).
+[Find the report here](https://infogram.com/report-1h1749veeklxq6z?live).

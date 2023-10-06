@@ -10,5 +10,8 @@ The goal of this factsheet is to analyze the impact of Statutes of Limitation le
 ## Data 
 The data was gathered using Lex Machina, a litigation research company on August 25th, 2023, and spans all civil rights cases for police action in all 94 Federal Courts between January 1st, 2009, and August 25th, 2023.
 
+## Reproduction
+After cloning the repo, please run the master script.
+
 ## Report
 [You can find the report here](https://infogram.com/report-1h1749veeklxq6z?live).

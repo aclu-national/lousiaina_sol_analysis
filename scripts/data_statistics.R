@@ -1,11 +1,15 @@
 # What is the change in rate of police action cases per population?
 
-  ## I NEED A TEST THAT CAN COMPARE THIS??
-state_data_binary %>%
-  group_by(statute_of_limitations) %>%
-  summarize(prop_pa = sum(police_action_cases) / sum(total)) %>%
-  pivot_wider(names_from = statute_of_limitations, values_from = prop_pa) %>%
-  mutate(`Percent Difference` = 100*`1 Year`/`2 Years` - 100)
+# What is the proportion of police action cases?
+TOSTtwo.prop(
+  prop1 = (sum(court_1_year$police_action_cases) / sum(court_1_year$general_cases)),
+  prop2 = (sum(court_2_year$police_action_cases) / sum(court_2_year$general_cases)),
+  n1 = length(state_1_year$general_cases),
+  n2 = length(state_2_year$general_cases),
+  low_eqbound = -0.15,
+  high_eqbound = 0.15,
+  alpha = 0.05
+)
 
 # What is the change in average number of police action wins?
 t.test(

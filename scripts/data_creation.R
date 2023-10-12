@@ -7,7 +7,7 @@ library(lubridate)
 library(tidyverse)
 library(tidycensus)
 
-# --------------------------------- Data Creation and Cleaning -------------------------------
+# --------------------------------- Data Cleaning -------------------------------
 
 # Set the Census API key with an option to overwrite the existing key and install necessary packages.
 census_api_key("143ad25712071130fe552ba928d16e4df70e1f39", overwrite = TRUE, install = TRUE)
@@ -70,24 +70,71 @@ state_data <- data %>%
             statute_of_limitations = as.integer(unique(statute_of_limitations))) %>%
   mutate(n_courts = n())
 
-# Making binary 1 and 2 year data for analysis
-court_data_binary <- court_data %>%
-  filter(statute_of_limitations %in% c(1,2)) %>%
-  mutate(statute_of_limitations = ifelse(statute_of_limitations == 1,
-                                         paste0(statute_of_limitations, " Year"),
-                                         paste0(statute_of_limitations, " Years"))
-  )
+# --------------------------------- Analysis Data Creation -------------------------------
 
-state_data_binary <- state_data %>%
-  filter(statute_of_limitations %in% c(1,2)) %>%
-  mutate(statute_of_limitations = ifelse(statute_of_limitations == 1,
-                                         paste0(statute_of_limitations, " Year"),
-                                         paste0(statute_of_limitations, " Years"))
-  )
+# Function to create necessary datasets for analysis
+create_year_dataset <- function(data, years) {
+  result <- data %>%
+    filter(statute_of_limitations %in% years) %>%
+    mutate(statute_of_limitations = ifelse(statute_of_limitations == 1,
+                                           paste0(statute_of_limitations, " Year"),
+                                           paste0(statute_of_limitations, " Years"))
+    )
+  return(result)
+}
 
-# Splitting the data into 1 year vs. 2 year
+# 1 vs. 2
+court_data_1_2 <- create_year_dataset(court_data, c(1, 2))
+state_data_1_2 <- create_year_dataset(state_data, c(1, 2))
+
+# 1 vs. 3
+court_data_1_3 <- create_year_dataset(court_data, c(1, 3))
+state_data_1_3 <- create_year_dataset(state_data, c(1, 3))
+
+# 1 vs. 4
+court_data_1_4 <- create_year_dataset(court_data, c(1, 4))
+state_data_1_4 <- create_year_dataset(state_data, c(1, 4))
+
+# 1 vs. 5
+court_data_1_5 <- create_year_dataset(court_data, c(1, 5))
+state_data_1_5 <- create_year_dataset(state_data, c(1, 5))
+
+# 1 vs. 6
+court_data_1_6 <- create_year_dataset(court_data, c(1, 6))
+state_data_1_6 <- create_year_dataset(state_data, c(1, 6))
+
+# 1 vs. 2+
+court_data_1_2_plus <- create_year_dataset(court_data, 1:6)
+state_data_1_2_plus <- create_year_dataset(state_data, 1:6)
+
+
+# --------------------------------- Statistics Data Creation -------------------------------
+
+# Filtering data into 1 year SOL
 court_1_year <- court_data %>% filter(statute_of_limitations == 1)
-court_2_year <- court_data %>% filter(statute_of_limitations == 2)
-
 state_1_year <- state_data %>% filter(statute_of_limitations == 1)
+
+# Filtering data into 2 year SOL
+court_2_year <- court_data %>% filter(statute_of_limitations == 2)
 state_2_year <- state_data %>% filter(statute_of_limitations == 2)
+
+# Filtering data into 3 year SOL
+court_3_year <- court_data %>% filter(statute_of_limitations == 3)
+state_3_year <- state_data %>% filter(statute_of_limitations == 3)
+
+# Filtering data into 4 year SOL
+court_4_year <- court_data %>% filter(statute_of_limitations == 4)
+state_4_year <- state_data %>% filter(statute_of_limitations == 4)
+
+# Filtering data into 5 year SOL
+court_5_year <- court_data %>% filter(statute_of_limitations == 5)
+state_5_year <- state_data %>% filter(statute_of_limitations == 5)
+
+# Filtering data into 6 year SOL
+court_6_year <- court_data %>% filter(statute_of_limitations == 6)
+state_6_year <- state_data %>% filter(statute_of_limitations == 6)
+
+# Filtering data into 2+ year SOL
+court_2_year_plus <- court_data %>% filter(statute_of_limitations >= 2)
+state_2_year_plus <- state_data %>% filter(statute_of_limitations >= 2)
+

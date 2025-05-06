@@ -10,7 +10,7 @@ library(tidycensus)
 # --------------------------------- Data Cleaning -------------------------------
 
 # Set the Census API key with an option to overwrite the existing key and install necessary packages.
-census_api_key("143ad25712071130fe552ba928d16e4df70e1f39", overwrite = TRUE, install = TRUE)
+census_api_key("KEY", overwrite = TRUE, install = TRUE)
 
 # Load variable definitions for the year 2020 and geography "pl" (presumably "place").
 vars_2020 <- load_variables(2020, "pl")
